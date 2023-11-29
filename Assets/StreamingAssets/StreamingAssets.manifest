@@ -1,7 +1,11 @@
 ManifestFileVersion: 0
-CRC: 1473637242
+CRC: 3384514579
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: art/youxiang.png.ab
+      Name: assets/buildresources/ui/prefabs/image.prefab.ab
+      Dependencies:
+        Dependency_0: assets/buildresources/ui/res/youxiang.png.ab
+    Info_1:
+      Name: assets/buildresources/ui/res/youxiang.png.ab
       Dependencies: {}

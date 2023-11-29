@@ -9,6 +9,14 @@ public class PathUtil
     public static readonly string BuildResourcesPath = AssetsPath + "/BuildResources/";
     public static readonly string BuildOutPath = Application.streamingAssetsPath;
 
+    public static string BundleResourcePath
+    {
+        get
+        {
+            return Application.streamingAssetsPath;
+        }
+    }
+
     public static string GetUnityPath(string path)
     {
         if (string.IsNullOrEmpty(path))

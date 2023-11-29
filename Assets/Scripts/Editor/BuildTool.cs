@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class BuildTool : Editor
 {
@@ -26,6 +27,8 @@ public class BuildTool : Editor
     {
         List<AssetBundleBuild> assetBundleBuilds = new List<AssetBundleBuild>();
 
+        List<string> bundleInfos = new List<string>();
+
         string[] files = Directory.GetFiles(PathUtil.BuildResourcesPath, "*", SearchOption.AllDirectories);
         for (int i = 0; i < files.Length; i++)
         {
@@ -38,9 +41,15 @@ public class BuildTool : Editor
             assetPath = PathUtil.GetStandardPath(assetPath);
             Debug.Log(assetPath);
             assetBundle.assetNames = new string[] { assetPath };
-            string assetname = files[i].Replace(PathUtil.BuildResourcesPath, "").ToLower();
-            assetBundle.assetBundleName = assetname + ".ab";
+            string bundlePath = assetPath.Replace(PathUtil.BuildResourcesPath, "").ToLower();
+            assetBundle.assetBundleName = bundlePath + ".ab";
             assetBundleBuilds.Add(assetBundle);
+
+            string bundleInfo = assetPath + "|" + bundlePath + ".ab";
+            List<string> dependenceInfo = GetDependencies(assetPath);
+            if (dependenceInfo.Count > 0)
+                bundleInfo = bundleInfo + "|" + string.Join("|", dependenceInfo);
+            bundleInfos.Add(bundleInfo);
         }
 
         if(Directory.Exists(PathUtil.BuildOutPath))
@@ -48,5 +57,16 @@ public class BuildTool : Editor
         Directory.CreateDirectory(PathUtil.BuildOutPath);
 
         BuildPipeline.BuildAssetBundles(PathUtil.BuildOutPath, assetBundleBuilds.ToArray(), BuildAssetBundleOptions.None, target);
+
+        File.WriteAllLines(PathUtil.BuildOutPath + "/" + AppConst.FileListName, bundleInfos);
+        AssetDatabase.Refresh();
+    }
+
+    static List<string> GetDependencies(string curFire)
+    {
+        List<string> denpendencies = new List<string>();
+        string[] files = AssetDatabase.GetDependencies(curFire);
+        denpendencies = files.Where(file => !file.EndsWith(".cs") && !file.Equals(curFire)).ToList();
+        return denpendencies;
     }
 }

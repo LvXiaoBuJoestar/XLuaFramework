@@ -1,0 +1,2 @@
+Assets/BuildResources/UI/Prefabs/Image.prefab|assets/buildresources/ui/prefabs/image.prefab.ab|Assets/BuildResources/UI/Res/youxiang.png
+Assets/BuildResources/UI/Res/youxiang.png|assets/buildresources/ui/res/youxiang.png.ab
