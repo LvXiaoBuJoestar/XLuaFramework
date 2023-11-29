@@ -1,11 +1,14 @@
 ManifestFileVersion: 0
-CRC: 3384514579
+CRC: 562366509
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: assets/buildresources/ui/prefabs/image.prefab.ab
+      Name: assets/buildresources/scenes/myscene.unity.ab
+      Dependencies: {}
+    Info_1:
+      Name: assets/buildresources/ui/prefabs/testui.prefab.ab
       Dependencies:
         Dependency_0: assets/buildresources/ui/res/youxiang.png.ab
-    Info_1:
+    Info_2:
       Name: assets/buildresources/ui/res/youxiang.png.ab
       Dependencies: {}

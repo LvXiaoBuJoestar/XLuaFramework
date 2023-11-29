@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2403266086
+CRC: 1946088289
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 03839317baf73e79968fc55f703537d8
+    Hash: 540d98606040fc0bbb965082d5856744
   TypeTreeHash:
     serializedVersion: 2
     Hash: 7e709fe5f7b675169b925dd84be8594a
@@ -27,6 +27,6 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 Assets:
-- Assets/BuildResources/UI/Prefabs/Image.prefab
+- Assets/BuildResources/UI/Prefabs/TestUI.prefab
 Dependencies:
 - E:/ABABAB/Game/xLuaFramework/Assets/StreamingAssets/assets/buildresources/ui/res/youxiang.png.ab
