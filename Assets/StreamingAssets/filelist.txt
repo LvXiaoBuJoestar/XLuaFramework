@@ -1,0 +1,2 @@
+Assets/BuildResources/UI/Prefabs/TestUI.prefab|ui/prefabs/testui.prefab.ab|Assets/BuildResources/UI/Res/spritesheet_double.png
+Assets/BuildResources/UI/Res/spritesheet_double.png|ui/res/spritesheet_double.png.ab
