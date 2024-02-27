@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour
 {
-    [SerializeField] Transform canvasTransform;
- 
     class BundleInfo
     {
         public string AssetsName;
@@ -17,7 +15,7 @@ public class ResourceManager : MonoBehaviour
 
     private Dictionary<string, BundleInfo> m_BundleInfos = new Dictionary<string, BundleInfo>();
 
-    private void ParseVersionFile()
+    public void ParseVersionFile()
     {
         string url = Path.Combine(PathUtil.BundleResourcePath, AppConst.FileListName);
         string[] data = File.ReadAllLines(url);
@@ -65,11 +63,13 @@ public class ResourceManager : MonoBehaviour
 
     void EditorLoadAsset(string assetName, Action<UnityEngine.Object> action)
     {
+#if UNITY_EDITOR
         Debug.Log("Editor Mode Load Asset");
         UnityEngine.Object obj = UnityEditor.AssetDatabase.LoadAssetAtPath(assetName, typeof(UnityEngine.Object));
         if (obj == null)
             Debug.LogError("AssetName is not existed : " + assetName);
         action?.Invoke(obj);
+#endif
     }
 
     private void LoadAsset(string assetName, Action<UnityEngine.Object> action)
@@ -85,16 +85,4 @@ public class ResourceManager : MonoBehaviour
     public void LoadSound(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetSoundPath(assetName), action);
     public void LoadEffect(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetEffectPath(assetName), action);
     public void LoadScene(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetScenePath(assetName), action);
-
-
-    private void Start()
-    {
-        ParseVersionFile();
-        LoadUI("TestUI", OnComplete);
-    }
-
-    private void OnComplete(UnityEngine.Object obj)
-    {
-        Instantiate(obj, canvasTransform);
-    }
 }

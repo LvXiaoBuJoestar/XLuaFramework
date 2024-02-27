@@ -8,13 +8,17 @@ public class PathUtil
 
     public static readonly string BundleOutPath = Application.streamingAssetsPath;
 
+    public static readonly string ReadPath = Application.streamingAssetsPath;
+
+    public static readonly string ReadWritePath = Application.persistentDataPath;
+
     public static string BundleResourcePath
     {
         get
         {
             if (AppConst.GameMode == GameMode.Update)
-                return Application.persistentDataPath;
-            return Application.streamingAssetsPath;
+                return ReadWritePath;
+            return ReadPath;
         }
     }
 
