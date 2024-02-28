@@ -12,6 +12,8 @@ public class PathUtil
 
     public static readonly string ReadWritePath = Application.persistentDataPath;
 
+    public static readonly string LuaPath = "Assets/BuildResources/LuaScripts";
+
     public static string BundleResourcePath
     {
         get

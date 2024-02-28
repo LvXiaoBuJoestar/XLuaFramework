@@ -9,5 +9,12 @@ public class GameStart : MonoBehaviour
     private void Awake()
     {
         AppConst.GameMode = this.gameMode;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        Manager.ResourceManager.ParseVersionFile();
+        Manager.LuaManager.Init(() => { Manager.LuaManager.StartLua("main"); });
     }
 }

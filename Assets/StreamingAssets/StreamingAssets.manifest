@@ -1,14 +1,17 @@
 ManifestFileVersion: 0
-CRC: 848575935
+CRC: 1136355129
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: scenes/myscene.unity.ab
+      Name: luascripts/main.bytes.ab
       Dependencies: {}
     Info_1:
+      Name: scenes/myscene.unity.ab
+      Dependencies: {}
+    Info_2:
       Name: ui/prefabs/testui.prefab.ab
       Dependencies:
         Dependency_0: ui/res/spritesheet_double.png.ab
-    Info_2:
+    Info_3:
       Name: ui/res/spritesheet_double.png.ab
       Dependencies: {}
