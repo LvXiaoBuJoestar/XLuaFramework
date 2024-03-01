@@ -1,5 +1,15 @@
+Manager = CS.Manager
+
+local group = {
+	"main",
+	"UI",
+	"Box"
+}
+Manager.UIManager:SetUIGroup(group);
+
 function Main()
 	print("Hello Main");
+	Manager.UIManager:OpenUI("TestUI", "UI", "UI.TestUI")
 end
 
 Main()

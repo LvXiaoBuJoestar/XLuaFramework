@@ -1,4 +1,5 @@
 Assets/BuildResources/LuaScripts/main.bytes|luascripts/main.bytes.ab
 Assets/BuildResources/Scenes/MyScene.unity|scenes/myscene.unity.ab
+Assets/BuildResources/LuaScripts/UI/TestUI.bytes|luascripts/ui/testui.bytes.ab
 Assets/BuildResources/UI/Prefabs/TestUI.prefab|ui/prefabs/testui.prefab.ab|Assets/BuildResources/UI/Res/spritesheet_double.png
 Assets/BuildResources/UI/Res/spritesheet_double.png|ui/res/spritesheet_double.png.ab

@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 1531616252}
   - component: {fileID: 1531616256}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,7 +404,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1534492218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ca5428eadea204fb8447bf46ee82fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMode: 1
+  gameMode: 0
 --- !u!4 &1534492218
 Transform:
   m_ObjectHideFlags: 0
@@ -467,6 +467,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1563246998}
+  - {fileID: 1531616255}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1563246997
@@ -587,6 +588,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1531616255}
   - {fileID: 1989483275}
   - {fileID: 1534492218}

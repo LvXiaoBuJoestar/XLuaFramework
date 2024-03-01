@@ -16,9 +16,16 @@ public class Manager : MonoBehaviour
         get { return luaManager; }
     }
 
+    private static UIManager uiManager;
+    public static UIManager UIManager
+    {
+        get { return uiManager; }
+    }
+
     private void Awake()
     {
         resourceManager = gameObject.AddComponent<ResourceManager>();
         luaManager = gameObject.AddComponent<LuaManager>();
+        uiManager = gameObject.AddComponent<UIManager>();
     }
 }
