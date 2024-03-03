@@ -1,24 +1,36 @@
 ManifestFileVersion: 0
-CRC: 1219008765
+CRC: 2620838438
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ad1f6d569f72f71e2aca217f2fc9ccc1
+    Hash: 01f0ccbd560ac132caae216727da872a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 80b979bb035c883f0691a454f3348ac5
+    Hash: 11cf61b9953da6f64d5d799298fe7789
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: ad1f6d569f72f71e2aca217f2fc9ccc1
+    Hash: 01f0ccbd560ac132caae216727da872a
 HashAppended: 0
 ClassTypes:
 - Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -36,12 +48,15 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.ColorBlock
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Navigation
 - AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Slider/SliderEvent
+- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
 Assets:
 - Assets/BuildResources/UI/Prefabs/TestUI.prefab
-Dependencies:
-- E:/ABABAB/Game/XLuaFramework/Assets/StreamingAssets/ui/res/spritesheet_double.png.ab
+Dependencies: []

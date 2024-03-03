@@ -22,8 +22,8 @@ Manager.EntityManager:SetEntityGroup(entity_group)
 
 function Main()
 	print("Hello Main")
-	--Manager.UIManager:OpenUI("TestUI", "UI", "UI.TestUI")
-	Manager.SceneManager:LoadScene("Test01", "scene.Scene01")
+	Manager.UIManager:OpenUI("TestUI", "UI", "UI.TestUI")
+	--Manager.SceneManager:LoadScene("Test01", "scene.Scene01")
 end
 
 Main()

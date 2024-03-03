@@ -14,6 +14,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     private Dictionary<string, BundleInfo> m_BundleInfos = new Dictionary<string, BundleInfo>();
+    private Dictionary<string, AssetBundle> m_AssetBundles = new Dictionary<string, AssetBundle>();
 
     public void ParseVersionFile()
     {
@@ -39,22 +40,39 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
+    AssetBundle GetBundle(string name)
+    {
+        AssetBundle bundle = null;
+        if (m_AssetBundles.TryGetValue(name, out bundle))
+            return bundle;
+        return null;
+    }
+
     IEnumerator LoadBundleAsync(string assetName, Action<UnityEngine.Object> action = null)
     {
         string bundleName = m_BundleInfos[assetName].BundleName;
-        string bundlePath = Path.Combine(PathUtil.BundleResourcePath, bundleName);
-        List<string> dependencies = m_BundleInfos[assetName].Dependencies;
 
-        if(dependencies != null && dependencies.Count > 0)
+        AssetBundle bundle = GetBundle(bundleName);
+
+        if(bundle == null)
         {
-            for(int i = 0; i < dependencies.Count; i++)
-            {
-                yield return LoadBundleAsync(dependencies[i]);
-            }
-        }
+            string bundlePath = Path.Combine(PathUtil.BundleResourcePath, bundleName);
+            List<string> dependencies = m_BundleInfos[assetName].Dependencies;
 
-        AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
-        yield return request;
+            if (dependencies != null && dependencies.Count > 0)
+            {
+                for (int i = 0; i < dependencies.Count; i++)
+                {
+                    yield return LoadBundleAsync(dependencies[i]);
+                }
+            }
+
+            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
+            yield return request;
+
+            bundle = request.assetBundle;
+            m_AssetBundles[bundleName] = bundle;
+        }
 
         if (assetName.EndsWith(".unity"))
         {
@@ -62,7 +80,7 @@ public class ResourceManager : MonoBehaviour
             yield break;
         }
 
-        AssetBundleRequest bundleRequest = request.assetBundle.LoadAssetAsync(assetName);
+        AssetBundleRequest bundleRequest = bundle.LoadAssetAsync(assetName);
         yield return bundleRequest;
 
         action?.Invoke(bundleRequest?.asset);

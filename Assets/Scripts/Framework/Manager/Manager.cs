@@ -34,6 +34,12 @@ public class Manager : MonoBehaviour
         get { return sceneManager; }
     }
 
+    private static SoundManager soundManager;
+    public static SoundManager SoundManager
+    {
+        get { return soundManager; }
+    }
+
     private void Awake()
     {
         resourceManager = gameObject.AddComponent<ResourceManager>();
@@ -41,5 +47,6 @@ public class Manager : MonoBehaviour
         uiManager = gameObject.AddComponent<UIManager>();
         entityManager = gameObject.AddComponent<EntityManager>();
         sceneManager = gameObject.AddComponent<MySceneManager>();
+        soundManager = gameObject.AddComponent<SoundManager>();
     }
 }
