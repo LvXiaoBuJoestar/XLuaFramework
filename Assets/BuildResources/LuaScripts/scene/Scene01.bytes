@@ -1,0 +1,25 @@
+function OnInit()
+	print("Lua OnInit")
+end
+
+function OnActive()
+	print("Lua OnActive")
+end
+
+function OnEnter()
+	print("Lua OnEnter")
+	Manager.SceneManager:ChangeScene("Test02", "scene.Scene02")
+	--Manager.SceneManager:SetActive(self.SceneName);
+end
+
+function Update()
+	print("Lua Update")
+end
+
+function OnInActive()
+	print("Lua OnInActive")
+end
+
+function OnQuit()
+	print("Lua OnQuit")
+end

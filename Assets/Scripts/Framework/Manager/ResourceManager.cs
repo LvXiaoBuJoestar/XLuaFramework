@@ -56,6 +56,12 @@ public class ResourceManager : MonoBehaviour
         AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
         yield return request;
 
+        if (assetName.EndsWith(".unity"))
+        {
+            action?.Invoke(null);
+            yield break;
+        }
+
         AssetBundleRequest bundleRequest = request.assetBundle.LoadAssetAsync(assetName);
         yield return bundleRequest;
 
@@ -89,4 +95,5 @@ public class ResourceManager : MonoBehaviour
     public void LoadEffect(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetEffectPath(assetName), action);
     public void LoadScene(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetScenePath(assetName), action);
     public void LoadLua(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(assetName, action);
+    public void LoadPrefab(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(assetName, action);
 }

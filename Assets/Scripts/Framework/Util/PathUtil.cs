@@ -43,6 +43,7 @@ public class PathUtil
     public static string GetMusicPath(string name) => string.Format("Assets/BuildResources/Audio/Music/{0}", name);
     public static string GetSoundPath(string name) => string.Format("Assets/BuildResources/Audio/Sound/{0}", name);
     public static string GetEffectPath(string name) => string.Format("Assets/BuildResources/Effect/Prefabs/{0}.prefab", name);
+    public static string GetModelPath(string name) => string.Format("Assets/BuildResources/Model/Prefabs/{0}.prefab", name);
     public static string GetSpritePath(string name) => string.Format("Assets/BuildResources/Sprites/{0}", name);
     public static string GetScenePath(string name) => string.Format("Assets/BuildResources/Scenes/{0}.unity", name);
 }

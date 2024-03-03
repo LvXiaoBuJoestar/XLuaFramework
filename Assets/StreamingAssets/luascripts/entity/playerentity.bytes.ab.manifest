@@ -1,20 +1,20 @@
 ManifestFileVersion: 0
-CRC: 41877842
+CRC: 3787417338
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7aecf563535189a55b3f7fe83babcf72
+    Hash: eb804687a61dc46c13aa5437efaa5499
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 7aecf563535189a55b3f7fe83babcf72
+    Hash: eb804687a61dc46c13aa5437efaa5499
 HashAppended: 0
 ClassTypes:
 - Class: 49
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/BuildResources/LuaScripts/UI/TestUI.bytes
+- Assets/BuildResources/LuaScripts/entity/PlayerEntity.bytes
 Dependencies: []
