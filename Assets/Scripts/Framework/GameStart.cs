@@ -14,7 +14,19 @@ public class GameStart : MonoBehaviour
 
     private void Start()
     {
+        Manager.EventManager.Subscribe(10000, OnLuaInit);
+
         Manager.ResourceManager.ParseVersionFile();
-        Manager.LuaManager.Init(() => { Manager.LuaManager.StartLua("main"); });
+        Manager.LuaManager.Init();
+    }
+
+    void OnLuaInit(object args)
+    {
+        Manager.LuaManager.StartLua("main");
+    }
+
+    private void OnApplicationQuit()
+    {
+        Manager.EventManager.UnSubscribe(10000, OnLuaInit);
     }
 }

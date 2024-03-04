@@ -12,8 +12,6 @@ public class LuaManager : MonoBehaviour
 
     public LuaEnv LuaEnv;
 
-    Action InitFinish;
-
     private void Awake()
     {
         LuaEnv = new LuaEnv();
@@ -35,9 +33,8 @@ public class LuaManager : MonoBehaviour
         }
     }
 
-    public void Init(Action initFinish)
+    public void Init()
     {
-        InitFinish += initFinish;
         if (AppConst.GameMode == GameMode.Editor)
             EditorLoadLuaScript();
         else
@@ -77,7 +74,7 @@ public class LuaManager : MonoBehaviour
                 {
                     LuaNames.Clear();
                     LuaNames = null;
-                    InitFinish?.Invoke();
+                    Manager.EventManager.Fire(10000);
                 }
             });
         }
@@ -98,7 +95,7 @@ public class LuaManager : MonoBehaviour
             byte[] file = File.ReadAllBytes(fileName);
             AddLuaScripts(PathUtil.GetUnityPath(fileName), file);
         }
-        InitFinish?.Invoke();
+        Manager.EventManager.Fire(10000);
 #endif
     }
 }
