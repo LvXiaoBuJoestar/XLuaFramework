@@ -107,6 +107,11 @@ public class ResourceManager : MonoBehaviour
             StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
+    public void UnLoadBundle(string name)
+    {
+
+    }
+
     public void LoadUI(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetUIPath(assetName), action);
     public void LoadMusic(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetMusicPath(assetName), action);
     public void LoadSound(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetSoundPath(assetName), action);
