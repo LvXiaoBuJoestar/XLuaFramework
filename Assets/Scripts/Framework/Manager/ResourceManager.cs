@@ -13,8 +13,20 @@ public class ResourceManager : MonoBehaviour
         public List<string> Dependencies;
     }
 
+    class BundleData
+    {
+        public AssetBundle Bundle;
+        public int Count;
+
+        public BundleData(AssetBundle ab)
+        {
+            Bundle = ab;
+            Count = 1;
+        }
+    }
+
     private Dictionary<string, BundleInfo> m_BundleInfos = new Dictionary<string, BundleInfo>();
-    private Dictionary<string, AssetBundle> m_AssetBundles = new Dictionary<string, AssetBundle>();
+    private Dictionary<string, BundleData> m_AssetBundles = new Dictionary<string, BundleData>();
 
     public void ParseVersionFile()
     {
@@ -40,11 +52,14 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    AssetBundle GetBundle(string name)
+    BundleData GetBundle(string name)
     {
-        AssetBundle bundle = null;
+        BundleData bundle = null;
         if (m_AssetBundles.TryGetValue(name, out bundle))
+        {
+            bundle.Count++;
             return bundle;
+        }
         return null;
     }
 
@@ -52,26 +67,35 @@ public class ResourceManager : MonoBehaviour
     {
         string bundleName = m_BundleInfos[assetName].BundleName;
 
-        AssetBundle bundle = GetBundle(bundleName);
+        BundleData bundle = GetBundle(bundleName);
 
         if(bundle == null)
         {
             string bundlePath = Path.Combine(PathUtil.BundleResourcePath, bundleName);
-            List<string> dependencies = m_BundleInfos[assetName].Dependencies;
 
-            if (dependencies != null && dependencies.Count > 0)
+            UnityEngine.Object obj = Manager.PoolManager.Spawn("AssetBundle", assetName);
+            if(obj != null)
             {
-                for (int i = 0; i < dependencies.Count; i++)
-                {
-                    yield return LoadBundleAsync(dependencies[i]);
-                }
+                AssetBundle ab = obj as AssetBundle;
+                bundle = new BundleData(ab);
+            }
+            else
+            {
+                AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
+                yield return request;
+                bundle = new BundleData(request.assetBundle);
             }
 
-            AssetBundleCreateRequest request = AssetBundle.LoadFromFileAsync(bundlePath);
-            yield return request;
-
-            bundle = request.assetBundle;
             m_AssetBundles[bundleName] = bundle;
+        }
+
+        List<string> dependencies = m_BundleInfos[assetName].Dependencies;
+        if (dependencies != null && dependencies.Count > 0)
+        {
+            for (int i = 0; i < dependencies.Count; i++)
+            {
+                yield return LoadBundleAsync(dependencies[i]);
+            }
         }
 
         if (assetName.EndsWith(".unity"))
@@ -80,7 +104,10 @@ public class ResourceManager : MonoBehaviour
             yield break;
         }
 
-        AssetBundleRequest bundleRequest = bundle.LoadAssetAsync(assetName);
+        if (action == null)
+            yield break;
+
+        AssetBundleRequest bundleRequest = bundle.Bundle.LoadAssetAsync(assetName);
         yield return bundleRequest;
 
         action?.Invoke(bundleRequest?.asset);
@@ -107,9 +134,10 @@ public class ResourceManager : MonoBehaviour
             StartCoroutine(LoadBundleAsync(assetName, action));
     }
 
-    public void UnLoadBundle(string name)
+    public void UnLoadBundle(UnityEngine.Object obj)
     {
-
+        AssetBundle ab = obj as AssetBundle;
+        ab.Unload(true);
     }
 
     public void LoadUI(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetUIPath(assetName), action);
@@ -119,4 +147,39 @@ public class ResourceManager : MonoBehaviour
     public void LoadScene(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(PathUtil.GetScenePath(assetName), action);
     public void LoadLua(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(assetName, action);
     public void LoadPrefab(string assetName, Action<UnityEngine.Object> action = null) => LoadAsset(assetName, action);
+
+    private void MinusOneBundleCount(string bundleName)
+    {
+        if(m_AssetBundles.TryGetValue(bundleName, out BundleData bundle))
+        {
+            if(bundle.Count > 0)
+            {
+                bundle.Count--;
+                Debug.Log("bundle引用计数 : " + bundleName + " count : " + bundle.Count);
+            }
+            if(bundle.Count <= 0)
+            {
+                Debug.Log("放入bundle对象池 : " + bundleName);
+                Manager.PoolManager.UnSpawn("AssetBundle", bundleName, bundle.Bundle);
+                m_AssetBundles.Remove(bundleName);
+            }
+        }
+    }
+
+    public void MinusBundleCount(string assetName)
+    {
+        string bundleName = m_BundleInfos[assetName].BundleName;
+
+        MinusOneBundleCount(bundleName);
+
+        List<string> dependencies = m_BundleInfos[assetName].Dependencies;
+        if(dependencies != null)
+        {
+            foreach(string dependence in dependencies)
+            {
+                string name = m_BundleInfos[dependence].BundleName;
+                MinusOneBundleCount(name);
+            }
+        }
+    }
 }
