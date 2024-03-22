@@ -15,6 +15,8 @@ public class LuaManager : MonoBehaviour
     private void Awake()
     {
         LuaEnv = new LuaEnv();
+        LuaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
+
         LuaEnv.AddLoader(Loader);
     }
 

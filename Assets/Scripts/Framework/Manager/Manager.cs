@@ -52,6 +52,12 @@ public class Manager : MonoBehaviour
         get { return poolManager; }
     }
 
+    private static NetManager netManager;
+    public static NetManager NetManager
+    {
+        get { return netManager; }
+    }
+
     private void Awake()
     {
         resourceManager = gameObject.AddComponent<ResourceManager>();
@@ -62,5 +68,6 @@ public class Manager : MonoBehaviour
         soundManager = gameObject.AddComponent<SoundManager>();
         eventManager = gameObject.AddComponent<EventManager>();
         poolManager = gameObject.AddComponent<PoolManager>();
+        netManager = gameObject.AddComponent<NetManager>();
     }
 }
